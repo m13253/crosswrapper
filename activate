@@ -38,6 +38,7 @@ main() {
     then
         if [ "$1" != '--help' ]
         then
+            HOST="$1"
             TRIPLE="$1"-
         else
             print_help
@@ -77,7 +78,7 @@ EOM
         exit 2
     fi
     echo "Starting \"${SHELL:-bash}\" shell, type \"exit\" when you finish." >&2
-    PATH="$TEMPDIR:$PATH" "${SHELL:-bash}" -i
+    HOST="$HOST" PATH="$TEMPDIR:$PATH" "${SHELL:-bash}" -i
     rm -rfv "$TEMPDIR"
 }
 
