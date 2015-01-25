@@ -14,6 +14,8 @@ CrossWrapper works on Linux. Make sure that GNU coreutils are installed on your 
 
 Then type `./activate`, followed by your "host" tuple.
 
+It will scan your current `$PATH` to create wrapper commands. It may take some seconds if you have a lot of commands installed.
+
 It will start a new shell (by default, bash). When you type something like `gcc` in the new shell, `${HOST}-gcc` will be actually invoked. 
 
 When you finished, type `exit`.
