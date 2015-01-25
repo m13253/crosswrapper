@@ -78,7 +78,7 @@ EOM
         exit 2
     fi
     echo "Starting \"${SHELL:-bash}\" shell, type \"exit\" when you finish." >&2
-    HOST="$HOST" PATH="$TEMPDIR:$PATH" "${SHELL:-bash}" -i
+    PATH="$TEMPDIR:$PATH" "${SHELL:-bash}" -i
     rm -rfv "$TEMPDIR"
 }
 

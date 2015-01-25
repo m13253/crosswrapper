@@ -20,6 +20,14 @@ It will start a new shell (by default, bash). When you type something like `gcc`
 
 When you finished, type `exit`.
 
+## Support for build systems (Autoconf, CMake, etc)
+
+CrossWrapper is only intended for hard-coded Makefiles, instead of auto build systems.
+
+This is because Autoconf and CMake tries to execute the built executable during configuration stage.
+
+If you are already inside a CrossWrapper shell, you still need to specify `./configure --host=$HOST` for Autoconf, or `cmake -DCMAKE_TOOLCHAIN_FILE=$HOST_CONFIG` for CMake.
+
 ## Support for BSD/OS X?
 
 I am not sure how to do that. If you managed to get it work, please contribute to this project by sending a pull request at GitHub.
