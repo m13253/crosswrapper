@@ -60,7 +60,7 @@ main() {
     FOUND=
     while IFS= read -d '' COMMAND
     do
-        COMMAND_FILENAME="$(basename "$COMMAND")"
+        COMMAND_FILENAME="$(basename -- "$COMMAND")"
         if [ "${COMMAND_FILENAME:0:${#TRIPLE}}" = "$TRIPLE" ]
         then
             COMMAND_FILENAME="${COMMAND_FILENAME:${#TRIPLE}}"
