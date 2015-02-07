@@ -34,14 +34,21 @@ EOM
 
 main() {
     TRIPLE=
-    if [ "$#" -eq '1' ]
+    if [ "$#" -ge '1' ]
     then
-        if [ "$1" != '--help' ]
+        if [ "$1" -a "$1" != '--help' ]
         then
             HOST="$1"
             TRIPLE="$1"-
         else
             print_help
+        fi
+        shift
+        if [ "$#" -ne 0 ]
+        then
+            CHILD_CMD=("$@")
+        else
+            CHILD_CMD=("${SHELL:-bash}" -i)
         fi
     else
         print_help
@@ -63,7 +70,7 @@ main() {
                 cat >"$TEMPDIR/$COMMAND_FILENAME" <<EOM
 #!/bin/bash
 
-PATH=$QUOTE_PATH exec $QUOTE_COMMAND "\$@"
+PATH=$QUOTE_PATH exec -- $QUOTE_COMMAND "\$@"
 EOM
                 chmod +x "$TEMPDIR/$COMMAND_FILENAME"
                 FOUND=1
@@ -77,8 +84,11 @@ EOM
         echo "Found nothing starting with \"$TRIPLE\". Did you typed wrong host-triple?" >&2
         exit 2
     fi
-    echo "Starting \"${SHELL:-bash}\" shell, type \"exit\" when you finish." >&2
-    PATH="$TEMPDIR:$PATH" "${SHELL:-bash}" -i
+    if [ "$#" -eq 0 ]
+    then
+        echo "Starting \"${CHILD_CMD[0]}\" shell, type \"exit\" when you finish." >&2
+    fi
+    PATH="$TEMPDIR:$PATH" "${CHILD_CMD[@]}"
     rm -rfv "$TEMPDIR"
 }
 
