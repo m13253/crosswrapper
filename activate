@@ -27,7 +27,7 @@ set -e
 print_help() {
     cat<<EOM
 Usage: Interactive mode: $0 host-triple
-       Batch mode:       $0 host-triple [command]
+       Batch mode:       $0 host-triple command
 
 EOM
     exit
